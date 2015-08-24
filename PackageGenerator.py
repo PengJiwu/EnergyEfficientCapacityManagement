@@ -16,6 +16,7 @@ class PackageGenerator:
 
 	def generate_package(self, package_id, process_time, dob):
 		self.package_count += 1
+		self.upcoming = self.next_arrival()
 		return Package.Package(package_id, process_time, dob)
 
 	def next_arrival(self):
