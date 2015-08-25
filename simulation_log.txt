@@ -1,0 +1,138 @@
+14.4767, Package_1: I'm generated.
+14.4767, Package_1: I arrived to Server_1. 5 slots available.
+16.6302, Package_2: I'm generated.
+16.6302, Package_2: I arrived to Server_1. 4 slots available.
+The expected completions before update:
+	Package_1:	25.332
+	Package_2:	21.117
+The expected completions afters update:
+	Package_1:	50.663
+	Package_2:	42.235
+20.6476, Package_3: I'm generated.
+20.6476, Package_3: I arrived to Server_1. 3 slots available.
+The expected completions before update:
+	Package_1:	46.646
+	Package_2:	38.217
+	Package_3:	12.185
+The expected completions afters update:
+	Package_1:	69.969
+	Package_2:	57.326
+	Package_3:	18.277
+23.0638, Package_4: I'm generated.
+23.0638, Package_4: I arrived to Server_1. 2 slots available.
+The expected completions before update:
+	Package_1:	67.553
+	Package_2:	54.910
+	Package_3:	15.861
+	Package_4:	2.527
+The expected completions afters update:
+	Package_1:	90.070
+	Package_2:	73.213
+	Package_3:	21.148
+	Package_4:	3.369
+24.1451, Package_5: I'm generated.
+24.1451, Package_5: I arrived to Server_1. 1 slots available.
+The expected completions before update:
+	Package_1:	88.989
+	Package_2:	72.131
+	Package_3:	20.067
+	Package_4:	2.287
+	Package_5:	55.819
+The expected completions afters update:
+	Package_1:	111.236
+	Package_2:	90.164
+	Package_3:	25.084
+	Package_4:	2.859
+	Package_5:	69.774
+25.4487, Package_6: I'm generated.
+25.4487, Package_6: I'm going to queue
+27.0044, Package_4: I'm leaving Server_1. 1 slots available.
+The expected completions before update:
+	Package_1:	108.377
+	Package_2:	87.305
+	Package_3:	22.224
+	Package_5:	66.915
+The expected completions afters update:
+	Package_1:	86.701
+	Package_2:	69.844
+	Package_3:	17.780
+	Package_5:	53.532
+27.0044, Package_6: I arrived to Server_1. 1 slots available.
+The expected completions before update:
+	Package_1:	86.701
+	Package_2:	69.844
+	Package_3:	17.780
+	Package_5:	53.532
+	Package_6:	13.546
+The expected completions afters update:
+	Package_1:	108.377
+	Package_2:	87.305
+	Package_3:	22.224
+	Package_5:	66.915
+	Package_6:	16.932
+28.7070, Package_7: I'm generated.
+28.7070, Package_7: I'm going to queue
+29.7245, Package_8: I'm generated.
+29.7245, Package_8: I'm going to queue
+32.8035, Package_9: I'm generated.
+32.8035, Package_9: I'm going to queue
+38.2950, Package_10: I'm generated.
+38.2950, Package_10: I'm going to queue
+39.6406, Package_11: I'm generated.
+39.6406, Package_11: I'm going to queue
+43.9366, Package_6: I'm leaving Server_1. 1 slots available.
+The expected completions before update:
+	Package_1:	91.444
+	Package_2:	70.373
+	Package_3:	5.292
+	Package_5:	49.983
+The expected completions afters update:
+	Package_1:	73.156
+	Package_2:	56.298
+	Package_3:	4.234
+	Package_5:	39.986
+43.9366, Package_7: I arrived to Server_1. 1 slots available.
+The expected completions before update:
+	Package_1:	73.156
+	Package_2:	56.298
+	Package_3:	4.234
+	Package_5:	39.986
+	Package_7:	31.373
+The expected completions afters update:
+	Package_1:	91.444
+	Package_2:	70.373
+	Package_3:	5.292
+	Package_5:	49.983
+	Package_7:	39.216
+49.2289, Package_3: I'm leaving Server_1. 1 slots available.
+The expected completions before update:
+	Package_1:	86.152
+	Package_2:	65.081
+	Package_5:	44.690
+	Package_7:	33.924
+The expected completions afters update:
+	Package_1:	68.922
+	Package_2:	52.064
+	Package_5:	35.752
+	Package_7:	27.139
+49.2289, Package_8: I arrived to Server_1. 1 slots available.
+The expected completions before update:
+	Package_1:	68.922
+	Package_2:	52.064
+	Package_5:	35.752
+	Package_7:	27.139
+	Package_8:	18.473
+The expected completions afters update:
+	Package_1:	86.152
+	Package_2:	65.081
+	Package_5:	44.690
+	Package_7:	33.924
+	Package_8:	23.091
+50.7769, Package_12: I'm generated.
+50.7769, Package_12: I'm going to queue
+51.3315, Package_13: I'm generated.
+51.3315, Package_13: I'm going to queue
+57.2338, Package_14: I'm generated.
+57.2338, Package_14: I'm going to queue
+57.4441, Package_15: I'm generated.
+57.4441, Package_15: I'm going to queue
