@@ -19,10 +19,9 @@ class Server:
 			return self.simulator.run_time
 
 	def arrival(self, package):
-		print self.available
-		print str(self.simulator.now) + ', ' + package.name + ': I arrived'
 		self.package_list.append(package)
 		self.update(1)
+		print('%3.4f, %s: I arrived to %s. %d slots available.' %(self.simulator.now, package.name, self.name, self.available))
 
 	def notify(self, time_step):
 		for p in self.package_list:
@@ -31,16 +30,17 @@ class Server:
 	def next_job(self):
 		timeouts = [p.process_time for p in self.package_list]
 		package_idx = np.argmin(timeouts)
-		print str(self.simulator.now) + ', ' + self.package_list[package_idx].name + \
-		      ': I\'m leaving'
+		print('%3.4f, %s: I\'m leaving %s. %d slots available.' %(self.simulator.now, self.package_list[package_idx].name, self.name, (self.available+1)))
 		del self.package_list[package_idx]
 		self.update(-1)
 
 	def update(self, change):
+		self.available = self.capacity - len(self.package_list)
 		if(len(self.package_list) - change == 0):
 			return
 		else:
-			self.available = self.capacity - len(self.package_list)
 			for p in self.package_list:
-				p.process_time = p.process_time * (len(self.package_list) / \
-					             (len(self.package_list) - change))
+				cur_len = len(self.package_list) * 1.0
+				prev_len = (len(self.package_list) - change) * 1.0
+				new_process_time = p.process_time * (cur_len / prev_len)
+				p.process_time = new_process_time

@@ -7,6 +7,7 @@ class PackageGenerator:
 
 	def __init__(self, lambd, process_time, simulator, 
 				 process_type='constant', arrival_type='homogeneous'):
+		self.name = 'PackageGenerator'
 		self.lambd = lambd
 		self.lambd_idx = 0
 		self.package_count = 0
@@ -31,11 +32,12 @@ class PackageGenerator:
 		self.upcoming = self.next_arrival()
 		new_package = Package.Package(self.simulator.package_count,
 		                              process_time, timestamp)
+		print('%3.4f, %s: I\'m generated.' %(self.simulator.now, new_package.name))
 		self.simulator.package_manager(new_package)
 
 	def next_arrival(self):
 		if(self.arrival_type == 'homogeneous'):
-			return expovariate(1.0 / self.lambd)
+			return expovariate(1.0 / self.lambd) 
 		elif(self.arrival_type == 'nonhomogeneous'):
 			self.lambd_idx += 1
 			return expovariate(1.0 / self.lambd[(self.lambd.idx) - 1])
