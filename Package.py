@@ -7,4 +7,3 @@ class Package:
 		self.process_time = process_time
 		self.arrival_time = arrival_time
 		self.wait_time = 0
-		print str(self.arrival_time) + ', ' + self.name + ': I\'m alive!!! '
