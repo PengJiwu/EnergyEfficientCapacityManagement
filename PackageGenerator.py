@@ -33,7 +33,7 @@ class PackageGenerator:
 		new_package = Package.Package(self.simulator.package_count,
 		                              process_time, timestamp)
 		print('%3.4f, %s: I\'m generated.' %(self.simulator.now, new_package.name))
-		self.simulator.package_manager(new_package)
+		self.simulator.package_routing(new_package)
 
 	def next_arrival(self):
 		if(self.arrival_type == 'homogeneous'):

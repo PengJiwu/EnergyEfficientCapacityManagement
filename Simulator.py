@@ -41,13 +41,13 @@ class Simulator:
 
 			# Retry allocating queued packages
 			if self.package_queue:
-				self.package_manager(self.package_queue[0])
+				self.package_routing(self.package_queue[0])
 
 	def add_resource(self, new_server):
 		self.resources.append(new_server)
 		self.processes.append(new_server)
 
-	def package_manager(self, package):
+	def package_routing(self, package):
 		free_slots = []
 		free_servers = []
 		for server in self.resources:
