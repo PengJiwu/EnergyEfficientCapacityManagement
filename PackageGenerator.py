@@ -39,8 +39,9 @@ class PackageGenerator:
 		if(self.arrival_type == 'homogeneous'):
 			return expovariate(1.0 / self.lambd) 
 		elif(self.arrival_type == 'nonhomogeneous'):
+			res = expovariate(1.0 / self.lambd[(self.lambd_idx)])
 			self.lambd_idx += 1
-			return expovariate(1.0 / self.lambd[(self.lambd.idx) - 1])
+			return res
 
 	def survey(self):
 		return self.upcoming

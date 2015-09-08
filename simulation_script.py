@@ -16,5 +16,5 @@ for idx in range(1,SERVER_LIM):
 pg = PackageGenerator.PackageGenerator(lambd=5, process_time=40,
 									   simulator=simulator, 
 	                                   process_type='constant',
-                                       arrival_type='homogeneous')
+                                       arrival_type='nonhomogeneous')
 simulator.simulate(pg)
