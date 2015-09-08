@@ -2,15 +2,18 @@ import Simulator
 import PackageGenerator
 import Server
 
-simulator = Simulator.Simulator(run_time=1000, package_limit=20,
+SERVER_LIM = 5
+PACKAGE_LIM = 50
+RUN_TIME = 1000
+
+simulator = Simulator.Simulator(run_time=RUN_TIME, package_limit=PACKAGE_LIM,
 	                            scheduling_type='shortest_queue')
 
-server1 = Server.Server(server_id=1, simulator=simulator, capacity=5)
-server2 = Server.Server(server_id=2, simulator=simulator, capacity=5)
-simulator.add_resource(server1)
-simulator.add_resource(server2)
+for idx in range(1,SERVER_LIM):
+	server = Server.Server(server_id=idx, simulator=simulator, capacity=5)
+	simulator.add_resource(server)
 
-pg = PackageGenerator.PackageGenerator(lambd=5, process_time=20,
+pg = PackageGenerator.PackageGenerator(lambd=5, process_time=40,
 									   simulator=simulator, 
 	                                   process_type='constant',
                                        arrival_type='homogeneous')
