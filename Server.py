@@ -39,16 +39,18 @@ class Server:
 		if(len(self.package_list) - change == 0):
 			return
 		else:
+			"""
 			print 'The expected completions before update:'
 			for p in self.package_list:
 				print('\t%s:\t%3.3f' % (p.name, p.process_time))
-
+			"""
 			for p in self.package_list:
 				cur_len = len(self.package_list) * 1.0
 				prev_len = (len(self.package_list) - change) * 1.0
 				new_process_time = p.process_time * (cur_len / prev_len)
 				p.process_time = new_process_time
-
-			print 'The expected completions afters update:'
+			"""
+			print 'The expected completions after update:'
 			for p in self.package_list:
 				print('\t%s:\t%3.3f' % (p.name, p.process_time))
+			"""

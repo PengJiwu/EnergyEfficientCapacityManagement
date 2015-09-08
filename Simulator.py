@@ -54,13 +54,14 @@ class Simulator:
 			if(server.available > 0):
 				free_slots.append(server.available)
 				free_servers.append(server)
+		free_slots = np.array(free_slots)
 
-		# There is some available capacirt
-		if free_slots:	
+		# There is some available capacity
+		if free_slots.tolist():	
 			if(self.scheduling_type == 'shortest_queue'):
-				server_idx = np.argmin(free_slots)
-			elif(self.scheduling_type == 'longest_queue'):
 				server_idx = np.argmax(free_slots)
+			elif(self.scheduling_type == 'longest_queue'):
+				server_idx = np.argmin(free_slots)
 			elif(self.scheduling_type == 'random'):
 				server_idx = randint(0,(len(free_slots)-1))
 			free_servers[server_idx].arrival(package)
