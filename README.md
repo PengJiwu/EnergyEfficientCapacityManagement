@@ -5,7 +5,7 @@ certain level.
 
 ~~This package extensively uses SimPy Discrete Event Simulation library.~~
 
-*Update @ 23.01.2015:* Apparently SimPy doesn't support Processor Sharing models
+*Update @ 23.10.2015:* Apparently SimPy doesn't support Processor Sharing models
 and its architecture doesn't allow us to do it by ourselves cleanly either.
 Hence, we decided not to use SimPy and write our own simulator! 
 
