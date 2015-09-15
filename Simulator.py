@@ -18,11 +18,21 @@ class Simulator:
 		self.scheduling_type = scheduling_type
 		if (self.scheduling_type not in ['shortest_queue', 'longest_queue', 'random']):
 			raise ValueError('Undefined Scheduling Type')
+		self.process_time_stats = []
+		self.wait_time_stats = []
+
+	def go_on(self):
+		# Time is over buddy. Gotta stop
+		if self.now >= self.run_time:
+			return False
+		# Enough packages have arrived and all have been processed
+		if self.package_count >= self.package_limit:
+			return False
+		return True
 
 	def simulate(self, init_proc):
 		self.processes.append(init_proc)
-		while((self.now < self.run_time) and \
-			  (self.package_count < self.package_limit)):
+		while(self.go_on()):
 			tasklist = [proc.survey() for proc in self.processes]
 			time_step = min(tasklist)
 			current_proc = self.processes[np.argmin(tasklist)]
@@ -42,6 +52,8 @@ class Simulator:
 			# Retry allocating queued packages
 			if self.package_queue:
 				self.package_routing(self.package_queue[0])
+
+		# Simulation is over.
 
 	def add_resource(self, new_server):
 		self.resources.append(new_server)
