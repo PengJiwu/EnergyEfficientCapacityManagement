@@ -32,7 +32,6 @@ class PackageGenerator:
 		self.upcoming = self.next_arrival()
 		new_package = Package.Package(self.package_count,
 		                              process_time, timestamp)
-		print('%3.4f, %s: I\'m generated.' %(self.simulator.now, new_package.name))
 		self.simulator.package_routing(new_package)
 
 	def next_arrival(self):

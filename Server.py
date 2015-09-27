@@ -32,8 +32,6 @@ class Server:
 		timeouts = [p.process_time for p in self.package_list]
 		package_idx = np.argmin(timeouts)
 		print('%3.4f, %s: I\'m leaving %s. %d slots available.' %(self.simulator.now, self.package_list[package_idx].name, self.name, (self.available+1)))
-		self.simulator.process_time_stats.append(self.simulator.now - self.package_list[package_idx].arrival_time)
-		self.simulator.wait_time_stats.append(self.package_list[package_idx].arrival_time - self.package_list[package_idx].generation_time)
 		self.simulator.package_count += 1
 		del self.package_list[package_idx]
 		self.update(-1)

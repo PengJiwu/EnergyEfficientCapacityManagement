@@ -5,21 +5,19 @@ class Simulator:
 
 	def __init__(self, run_time=100, package_limit=100, 
 		         scheduling_type='shortest_queue'):
-		self.run_time = run_time
-		self.processes = []
-		self.resources =[]
-		self.package_count = 0
-		self.package_limit = package_limit
-		self.package_queue = []
-		self.now = 0
+		self.run_time = run_time		   # max. duration of simulation
+		self.processes = []				   # list of parallel processes (threads)
+		self.resources =[]				   # list of servers
+		self.package_count = 0 			   # number of packages processed
+		self.package_limit = package_limit # number of packages to be processed
+		self.package_queue = []			   # queue of packages waiting for service
+		self.now = 0					   # the time of simulation environment
 		if (self.run_time < 0):
 			raise ValueError('Time only goes forward mate, sorry.')
 
-		self.scheduling_type = scheduling_type
+		self.scheduling_type = scheduling_type # routing method of packages
 		if (self.scheduling_type not in ['shortest_queue', 'longest_queue', 'random']):
 			raise ValueError('Undefined Scheduling Type')
-		self.process_time_stats = []
-		self.wait_time_stats = []
 
 	def go_on(self):
 		# Time is over buddy. Gotta stop
@@ -36,11 +34,9 @@ class Simulator:
 			tasklist = [proc.survey() for proc in self.processes]
 			time_step = min(tasklist)
 			current_proc = self.processes[np.argmin(tasklist)]
-			if(time_step == 0): #DEBUG
+			if(time_step == 0): # Then, we have a problem
 				break
 			self.now += time_step
-			if(self.now > self.run_time):
-				break
 
 			# Countdown the waiting job's waiting time by time_step
 			for proc in self.processes: 
