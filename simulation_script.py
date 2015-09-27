@@ -7,9 +7,9 @@ PACKAGE_LIM = 100
 RUN_TIME = 10000
 
 simulator = Simulator.Simulator(run_time=RUN_TIME, package_limit=PACKAGE_LIM,
-	                            scheduling_type='shortest_queue')
+	                            scheduling_type='random')
 
-for idx in range(1,SERVER_LIM):
+for idx in range(1,SERVER_LIM+1):
 	server = Server.Server(server_id=idx, simulator=simulator, capacity=5)
 	simulator.add_resource(server)
 
