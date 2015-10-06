@@ -12,7 +12,7 @@ RUN_TIME = 10000
 # Loading the nonhomogeneous poisson process lambda(t) values. 1st column
 # represents the endpoints of the histogram and the vals are corresponding
 # histogram values.
-lambd = np.loadtxt('./nhpp_data/sinusoid.txt')
+lambd = np.loadtxt('./extras/nhpp_data/sinusoid.txt')
 lambd_bins = lambd[:,0]
 lambd_vals = lambd[:,1]
 

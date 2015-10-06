@@ -12,7 +12,7 @@ problematic depending on your task.
 --------------------------------------------------------------------"""
 
 INTERVAL_LEN = 50
-LAMBDA_LEN = 1600
+LAMBDA_LEN = 10000
 
 lambd = [0 for _ in xrange(LAMBDA_LEN)]
 
@@ -37,6 +37,6 @@ for i in xrange((LAMBDA_LEN/INTERVAL_LEN) + 1):
 		avg_bins.append(cur_lim)
 		avg_vals.append(avg)
 
-with open('sine_lambda.txt', 'w') as f:
+with open('./nhpp_data/sinusoid.txt', 'w') as f:
 	for bn, val in zip(avg_bins, avg_vals):
 		f.write(str(bn) + '\t' + str(val) + '\n')
