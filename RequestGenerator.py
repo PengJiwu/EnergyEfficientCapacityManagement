@@ -5,23 +5,28 @@ from random import expovariate
 
 class RequestGenerator:
 
-	def __init__(self, lambd, process_time, simulator, 
-				 process_type='constant', arrival_type='homogeneous'):
+	def __init__(self, lambd, process_time, simulator, process_type='constant',
+				 arrival_type='homogeneous', lambd_bins = None):
 		self.name = 'RequestGenerator'
 		self.lambd = lambd
-		self.lambd_idx = 0
 		self.request_count = 0
 		self.process_time = process_time
 		self.simulator = simulator
-		self.process_type = process_type if process_type in \
-		                    ['constant', 'poisson'] else None
-		if(self.process_type is None):
+		
+		if(process_type not in ['constant', 'poisson']):
 			raise ValueError('Undefined Process Type')
+		self.process_type = process_type
 
-		self.arrival_type = arrival_type if arrival_type in \
-		                    ['homogeneous', 'nonhomogeneous'] else None
-		if(self.arrival_type is None):
+		
+		if(arrival_type not in ['homogeneous', 'nonhomogeneous']):
 			raise ValueError('Undefined Arrival Type')
+		self.arrival_type = arrival_type
+
+		if(self.arrival_type == 'nonhomogeneous'):
+			if(lambd_bins is None):
+				raise ValueError('Endpoints of Nonhomogeneous Poisson \
+								  Arrivals are Unknown') 
+			self.lambd_bins = lambd_bins
 
 		self.upcoming = self.next_arrival()
 
@@ -38,8 +43,21 @@ class RequestGenerator:
 		if(self.arrival_type == 'homogeneous'):
 			return expovariate(1.0 / self.lambd) 
 		elif(self.arrival_type == 'nonhomogeneous'):
-			res = expovariate(1.0 / self.lambd[(self.lambd_idx)])
-			self.lambd_idx += 1
+			for idx, bn in enumerate(self.lambd_bins):
+				if(self.simulator.now < bn):
+					break
+			# We are now in (idx)^th interval and we choose lambd
+			# accordingly. 
+			res = expovariate(1.0 / self.lambd[idx])
+			# If the expected arrival falls into the next interval,
+			# we re-calculate the arrival based on the next lambda.
+
+			# TODO: We just check if we exceed the bin limit and 
+			# recalculate, but what if the new arrival falls into
+			# our current interval and not the next? Should we bounce
+			# back and re-iterate the same procedure or just move on?
+			if((res + self.simulator.now) > bn):
+				res = expovariate(1.0 / self.lambd[(idx+1)])
 			return res
 
 	def survey(self):
