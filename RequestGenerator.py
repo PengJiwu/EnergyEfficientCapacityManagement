@@ -1,4 +1,4 @@
-import Package
+import Request
 import Simulator
 import numpy as np
 from random import expovariate
@@ -7,10 +7,10 @@ class RequestGenerator:
 
 	def __init__(self, lambd, process_time, simulator, 
 				 process_type='constant', arrival_type='homogeneous'):
-		self.name = 'PackageGenerator'
+		self.name = 'RequestGenerator'
 		self.lambd = lambd
 		self.lambd_idx = 0
-		self.package_count = 0
+		self.request_count = 0
 		self.process_time = process_time
 		self.simulator = simulator
 		self.process_type = process_type if process_type in \
@@ -25,14 +25,14 @@ class RequestGenerator:
 
 		self.upcoming = self.next_arrival()
 
-	def generate_package(self):
+	def generate_request(self):
 		process_time = self.next_process_time()
 		timestamp = self.simulator.now
-		self.package_count += 1
+		self.request_count += 1
 		self.upcoming = self.next_arrival()
-		new_package = Package.Package(self.package_count,
+		new_request = Request.Request(self.request_count,
 		                              process_time, timestamp)
-		self.simulator.package_routing(new_package)
+		self.simulator.request_routing(new_request)
 
 	def next_arrival(self):
 		if(self.arrival_type == 'homogeneous'):
@@ -46,7 +46,7 @@ class RequestGenerator:
 		return self.upcoming
 
 	def next_job(self):
-		self.generate_package()
+		self.generate_request()
 
 	def next_process_time(self):
 		if (self.process_type == 'constant'):
