@@ -38,5 +38,5 @@ for i in xrange((LAMBDA_LEN/INTERVAL_LEN) + 1):
 		avg_vals.append(avg)
 
 with open('sine_lambda.txt', 'w') as f:
-	for lim, val in zip(avg_bins, avg_vals):
-		f.write(str(lim) + '\t' + str(val) + '\n')
+	for bn, val in zip(avg_bins, avg_vals):
+		f.write(str(bn) + '\t' + str(val) + '\n')
