@@ -5,19 +5,21 @@ class Simulator:
 
 	def __init__(self, run_time=100, request_limit=100, 
 		         scheduling_type='shortest_queue'):
-		self.run_time = run_time		   # max. duration of simulation
 		self.processes = []				   # list of parallel processes (threads)
 		self.resources =[]				   # list of resources
 		self.request_count = 0 			   # number of requests processed
 		self.request_limit = request_limit # number of requests to be processed
 		self.request_queue = []			   # queue of requests waiting for service
 		self.now = 0					   # the time of simulation environment
-		if (self.run_time < 0):
-			raise ValueError('Time only goes forward mate, sorry.')
+		if (run_time < 0):
+			raise ValueError('Time goes forward mate, enter a positive value.')
+		else:
+			self.run_time = run_time		   # max. duration of simulation
 
-		self.scheduling_type = scheduling_type # routing method of requests
-		if (self.scheduling_type not in ['shortest_queue', 'longest_queue', 'random']):
-			raise ValueError('Undefined Scheduling Type')
+		if (scheduling_type not in ['shortest_queue', 'longest_queue', 'random']):
+			raise ValueError('Undefined scheduling type')
+		else:
+			self.scheduling_type = scheduling_type # routing method of requests
 
 	def go_on(self):
 		# Time is over buddy. Gotta stop
