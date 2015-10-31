@@ -39,6 +39,7 @@ class CapacityManager:
 				self.simulator.del_resource(idle_idxs[i])
 
 	def generate_resource(self):
+		#TODO: introduce delay
 		resource = Resource.Resource((self.res_cnt+1), self.simulator, self.res_cap)
 		self.res_cnt += 1
 		self.simulator.add_resource(resource)
