@@ -10,7 +10,7 @@ REQUEST_LIM = 100
 RUN_TIME = 10000
 
 simulator = Simulator.Simulator(run_time=RUN_TIME, request_limit=REQUEST_LIM,
-	                            scheduling_type='shortest_queue')
+	                            scheduling_type='longest_queue')
 
 capacity_manager = CapacityManager.CapacityManager(2, 5, simulator, 5)
 

@@ -61,8 +61,10 @@ class Simulator:
 
 	def del_resource(self, del_idx):
 		resource = self.resources[del_idx]
+		print str(len(self.resources)) + ' bfr'
 		self.resources.remove(resource)
 		self.processes.remove(resource)
+		print str(len(self.resources)) + ' aftr'
 
 	def request_routing(self, request):
 		free_slots = []
