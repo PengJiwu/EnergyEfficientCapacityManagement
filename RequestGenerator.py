@@ -12,6 +12,8 @@ class RequestGenerator:
 		self.request_count = 0
 		self.process_time = process_time
 		self.simulator = simulator
+
+		self.simulator.processes.append(self)
 		
 		if(process_type not in ['constant', 'poisson']):
 			raise ValueError('Undefined Process Type')

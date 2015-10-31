@@ -22,7 +22,7 @@ class Resource:
 		self.request_list.append(request)
 		request.arrival_time = self.simulator.now
 		self.update(1)
-		print('%3.4f, %s: I arrived to %s. %d slots available.' %(self.simulator.now, request.name, self.name, self.available))
+		#print('%3.4f, %s: I arrived to %s. %d slots available.' %(self.simulator.now, request.name, self.name, self.available))
 
 	def notify(self, time_step):
 		for r in self.request_list:
@@ -31,7 +31,7 @@ class Resource:
 	def next_job(self):
 		timeouts = [r.process_time for r in self.request_list]
 		request_idx = np.argmin(timeouts)
-		print('%3.4f, %s: I\'m leaving %s. %d slots available.' %(self.simulator.now, self.request_list[request_idx].name, self.name, (self.available+1)))
+		#print('%3.4f, %s: I\'m leaving %s. %d slots available.' %(self.simulator.now, self.request_list[request_idx].name, self.name, (self.available+1)))
 		self.simulator.request_count += 1
 		del self.request_list[request_idx]
 		self.update(-1)

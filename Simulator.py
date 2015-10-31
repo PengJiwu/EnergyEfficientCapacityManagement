@@ -11,6 +11,7 @@ class Simulator:
 		self.request_limit = request_limit # number of requests to be processed
 		self.request_queue = []			   # queue of requests waiting for service
 		self.now = 0					   # the time of simulation environment
+		self.capacity_manager = None
 		if (run_time < 0):
 			raise ValueError('Time goes forward mate, enter a positive value.')
 		else:
@@ -30,9 +31,10 @@ class Simulator:
 			return False
 		return True
 
-	def simulate(self, init_proc):
-		self.processes.append(init_proc)
+	def simulate(self):
 		while(self.go_on()):
+			print len(self.resources)
+			self.capacity_manager.manage_capacity(self.resources)
 			tasklist = [proc.survey() for proc in self.processes]
 			time_step = min(tasklist)
 			current_proc = self.processes[np.argmin(tasklist)]
@@ -51,11 +53,16 @@ class Simulator:
 			if self.request_queue:
 				self.request_routing(self.request_queue[0])
 
-		# Simulation is over.
+		# Simulation iteration is over.
 
 	def add_resource(self, new_resource):
 		self.resources.append(new_resource)
 		self.processes.append(new_resource)
+
+	def del_resource(self, del_idx):
+		resource = self.resources[del_idx]
+		self.resources.remove(resource)
+		self.processes.remove(resource)
 
 	def request_routing(self, request):
 		free_slots = []
@@ -82,5 +89,5 @@ class Simulator:
 		else:
 			if request not in self.request_queue:
 				#else it's already in the queue
-				print ('%3.4f, %s: I\'m going to queue' % (self.now, request.name))
+				#print ('%3.4f, %s: I\'m going to queue' % (self.now, request.name))
 				self.request_queue.append(request)
