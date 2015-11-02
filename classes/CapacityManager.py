@@ -3,7 +3,7 @@ import Resource
 
 class CapacityManager:
 
-	def __init__(self, t_low, t_high, simulator, res_cap, boot_time):
+	def __init__(self, t_low, t_high, simulator, res_cap, boot_time, monitor):
 		self.simulator = simulator
 		self.boot_time = boot_time
 		self.res_cap = res_cap
@@ -12,6 +12,7 @@ class CapacityManager:
 			raise ValueError('Upper limit is not larger than lower limit')
 		self.t_low = t_low
 		self.t_high = t_high
+		self.monitor = monitor
 		self.initialize_capacity()
 
 	def initialize_capacity(self):
@@ -37,11 +38,12 @@ class CapacityManager:
 		elif (idle_cnt > self.t_high):
 			diff = idle_cnt - self.t_high
 			for i in xrange(diff):
+				self.simulator.resources[idle_idxs[i]].shutdown()
 				self.simulator.del_resource(idle_idxs[i])
 
 	def generate_resource(self):
 		resource = Resource.Resource((self.res_cnt+1), self.simulator,
-									 self.boot_time, self.res_cap)
+									 self.boot_time, self.monitor, self.res_cap)
 		self.res_cnt += 1
 		self.simulator.add_resource(resource)
 

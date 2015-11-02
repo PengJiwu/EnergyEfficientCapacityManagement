@@ -3,8 +3,9 @@ from random import randint
 
 class Simulator:
 
-	def __init__(self, run_time=100, request_limit=100, 
+	def __init__(self, monitor, run_time=100, request_limit=100, 
 		         scheduling_type='shortest_queue'):
+		self.monitor = monitor			   # monitor for evaluating performance 
 		self.processes = []				   # list of parallel processes (threads)
 		self.resources =[]				   # list of resources
 		self.request_count = 0 			   # number of requests processed
@@ -25,9 +26,11 @@ class Simulator:
 	def go_on(self):
 		# Time is over buddy. Gotta stop
 		if self.now >= self.run_time:
+			print "Overtime"
 			return False
 		# Enough requests had been processed
 		if self.request_count >= self.request_limit:
+			print "Retired"
 			return False
 		return True
 
@@ -51,6 +54,8 @@ class Simulator:
 				self.request_routing(self.request_queue[0])
 
 		# Simulation iteration is over.
+
+		self.monitor.finalize(self)
 
 	def add_resource(self, new_resource):
 		self.resources.append(new_resource)

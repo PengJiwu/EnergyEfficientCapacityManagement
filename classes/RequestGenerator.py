@@ -5,13 +5,16 @@ from random import expovariate
 
 class RequestGenerator:
 
-	def __init__(self, lambd, process_time, simulator, process_type='constant',
-				 arrival_type='homogeneous', lambd_bins = None):
+	def __init__(self, lambd, process_time, simulator, monitor, 
+				 process_type='constant', arrival_type='homogeneous',
+				 lambd_bins=None):
 		self.name = 'RequestGenerator'
 		self.lambd = lambd
 		self.request_count = 0
 		self.process_time = process_time
 		self.simulator = simulator
+		self.monitor = monitor
+		self.passivate = False
 
 		self.simulator.processes.append(self)
 		
@@ -42,29 +45,34 @@ class RequestGenerator:
 		self.simulator.request_routing(new_request)
 
 	def next_arrival(self):
-		if(self.arrival_type == 'homogeneous'):
-			return expovariate(1.0 / self.lambd) 
-		elif(self.arrival_type == 'nonhomogeneous'):
-			for idx, bn in enumerate(self.lambd_bins):
-				if(self.simulator.now < bn):
-					break
-			# We are now in (idx)^th interval and we choose lambd
-			# accordingly. 
-			res = expovariate(1.0 / self.lambd[idx])
-			
-			# If the expected arrival falls into the next interval,
-			# we re-calculate the arrival based on the next lambda.
-			while(1):
-				if((res + self.simulator.now) > bn):
-					idx += 1
-					bn = self.lambd_bins[idx]
-					cur_lambd = self.lambd[(idx)]
-					res = bn + expovariate(1.0 / cur_lambd)
-					print "WATCH OUT"
-				else:
-					break
+		if(self.passivate):
+			return self.simulator.run_time + 1
+		else:
+			if(self.arrival_type == 'homogeneous'):
+				return expovariate(1.0 / self.lambd) 
+			elif(self.arrival_type == 'nonhomogeneous'):
+				for idx, bn in enumerate(self.lambd_bins):
+					if(self.simulator.now < bn):
+						break
+				# We are now in (idx)^th interval and we choose lambd
+				# accordingly. 
+				res = 1.0 / expovariate(1.0 / self.lambd[idx])
+				# If the expected arrival falls into the next interval,
+				# we re-calculate the arrival based on the next lambda.
+				while(1):
+					if((res + self.simulator.now) > bn):
+						if(idx < len(self.lambd_bins) - 1):
+							idx += 1
+							bn = self.lambd_bins[idx]
+							cur_lambd = self.lambd[(idx)]
+							res = (bn - self.lambd_bins[idx-1]) + 1.0 / expovariate(1.0 / cur_lambd)
+						else:
+							self.passivate = True
+							return self.simulator.run_time + 1
+					else:
+						break
 
-			return res
+				return res
 
 	def survey(self):
 		return self.upcoming
