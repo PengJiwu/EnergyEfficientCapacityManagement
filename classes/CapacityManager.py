@@ -3,8 +3,9 @@ import Resource
 
 class CapacityManager:
 
-	def __init__(self, t_low, t_high, simulator, res_cap):
+	def __init__(self, t_low, t_high, simulator, res_cap, boot_time):
 		self.simulator = simulator
+		self.boot_time = boot_time
 		self.res_cap = res_cap
 		self.res_cnt = 0
 		if(t_low >= t_high):
@@ -39,8 +40,8 @@ class CapacityManager:
 				self.simulator.del_resource(idle_idxs[i])
 
 	def generate_resource(self):
-		#TODO: introduce delay
-		resource = Resource.Resource((self.res_cnt+1), self.simulator, self.res_cap)
+		resource = Resource.Resource((self.res_cnt+1), self.simulator,
+									 self.boot_time, self.res_cap)
 		self.res_cnt += 1
 		self.simulator.add_resource(resource)
 

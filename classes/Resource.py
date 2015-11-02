@@ -4,19 +4,28 @@ import numpy as np
 
 class Resource:
 
-	def __init__(self, resource_id, simulator, capacity=5):
+	def __init__(self, resource_id, simulator, boot_time, capacity=5):
 		self.name = 'Resource_' + str(resource_id)
 		self.simulator = simulator
 		self.capacity = capacity
 		self.request_list = []
 		self.available = self.capacity - len(self.request_list)
+		self.boot_time = boot_time
+		self.initialized = False
+		print('%3.4f, %s: Im booting up.' %(self.simulator.now, self.name))
 
 	def survey(self):
-		timeouts = [r.process_time for r in self.request_list]
-		if timeouts :
-			return min(timeouts)
+		# If the server is up and running
+		if(self.initialized):
+			timeouts = [r.process_time for r in self.request_list]
+			if(timeouts):
+				return min(timeouts)
+			else:
+				return self.simulator.run_time
+		# Still in boot-up
 		else:
-			return self.simulator.run_time
+			return self.boot_time
+
 
 	def arrival(self, request):
 		self.request_list.append(request)
@@ -25,16 +34,23 @@ class Resource:
 		print('%3.4f, %s: I arrived to %s. %d slots available.' %(self.simulator.now, request.name, self.name, self.available))
 
 	def notify(self, time_step):
-		for r in self.request_list:
-			r.process_time -= time_step
+		if(self.initialized):
+			for r in self.request_list:
+				r.process_time -= time_step
+		else:
+			self.boot_time -= time_step
 
 	def next_job(self):
-		timeouts = [r.process_time for r in self.request_list]
-		request_idx = np.argmin(timeouts)
-		print('%3.4f, %s: I\'m leaving %s. %d slots available.' %(self.simulator.now, self.request_list[request_idx].name, self.name, (self.available+1)))
-		self.simulator.request_count += 1
-		del self.request_list[request_idx]
-		self.update(-1)
+		if(self.initialized):
+			timeouts = [r.process_time for r in self.request_list]
+			request_idx = np.argmin(timeouts)
+			print('%3.4f, %s: I\'m leaving %s. %d slots available.' %(self.simulator.now, self.request_list[request_idx].name, self.name, (self.available+1)))
+			self.simulator.request_count += 1
+			del self.request_list[request_idx]
+			self.update(-1)
+		else:
+			self.initialized = True
+			print('%3.4f, %s: Im ready to go.' %(self.simulator.now, self.name))
 
 	def update(self, change):
 		self.available = self.capacity - len(self.request_list)

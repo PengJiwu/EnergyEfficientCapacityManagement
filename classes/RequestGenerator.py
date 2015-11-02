@@ -51,15 +51,19 @@ class RequestGenerator:
 			# We are now in (idx)^th interval and we choose lambd
 			# accordingly. 
 			res = expovariate(1.0 / self.lambd[idx])
+			
 			# If the expected arrival falls into the next interval,
 			# we re-calculate the arrival based on the next lambda.
+			while(1):
+				if((res + self.simulator.now) > bn):
+					idx += 1
+					bn = self.lambd_bins[idx]
+					cur_lambd = self.lambd[(idx)]
+					res = bn + expovariate(1.0 / cur_lambd)
+					print "WATCH OUT"
+				else:
+					break
 
-			# TODO: We just check if we exceed the bin limit and 
-			# recalculate, but what if the new arrival falls into
-			# our current interval and not the next? Should we bounce
-			# back and re-iterate the same procedure or just move on?
-			if((res + self.simulator.now) > bn):
-				res = expovariate(1.0 / self.lambd[(idx+1)])
 			return res
 
 	def survey(self):

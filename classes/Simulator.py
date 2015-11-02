@@ -26,20 +26,17 @@ class Simulator:
 		# Time is over buddy. Gotta stop
 		if self.now >= self.run_time:
 			return False
-		# Enough requests have arrived and all have been processed
+		# Enough requests had been processed
 		if self.request_count >= self.request_limit:
 			return False
 		return True
 
 	def simulate(self):
 		while(self.go_on()):
-			print len(self.resources)
 			self.capacity_manager.manage_capacity(self.resources)
 			tasklist = [proc.survey() for proc in self.processes]
 			time_step = min(tasklist)
 			current_proc = self.processes[np.argmin(tasklist)]
-			if(time_step == 0): # Then, we have a problem
-				break
 			self.now += time_step
 
 			# Countdown the waiting job's waiting time by time_step
@@ -61,21 +58,19 @@ class Simulator:
 
 	def del_resource(self, del_idx):
 		resource = self.resources[del_idx]
-		print str(len(self.resources)) + ' bfr'
 		self.resources.remove(resource)
 		self.processes.remove(resource)
-		print str(len(self.resources)) + ' aftr'
 
 	def request_routing(self, request):
 		free_slots = []
 		free_resources = []
 		for resource in self.resources:
-			if(resource.available > 0):
+			if((resource.initialized) and (resource.available > 0)):
 				free_slots.append(resource.available)
 				free_resources.append(resource)
 		free_slots = np.array(free_slots)
 
-		# There is some available capacity
+		# If there is some available capacity
 		if free_slots.tolist():	
 			if(self.scheduling_type == 'shortest_queue'):
 				resource_idx = np.argmax(free_slots)
