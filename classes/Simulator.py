@@ -91,5 +91,5 @@ class Simulator:
 		else:
 			if request not in self.request_queue:
 				#else it's already in the queue
-				#print ('%3.4f, %s: I\'m going to queue' % (self.now, request.name))
+				print ('%3.4f, %s: I\'m going to queue' % (self.now, request.name))
 				self.request_queue.append(request)
