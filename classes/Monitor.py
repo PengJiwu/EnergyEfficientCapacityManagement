@@ -41,13 +41,13 @@ class Monitor():
 		print "-----------------------------------------"
 
 		plt.figure(0)
-		plt.hist(self.queue_times, bins=10, histtype='stepfilled', normed=True, color='b', label='Queueing Delay')
+		plt.hist(self.queue_times, bins=25, histtype='stepfilled', normed=True, color='b', label='Queueing Delay')
 		plt.title("Queueing Delay Histogram")
 		plt.xlabel("Delay Duration")
 		plt.ylabel("Frequency")
 
 		plt.figure(1)
-		plt.hist(self.process_times, bins=10, histtype='stepfilled', normed=True, color='r', label='Process Time')
+		plt.hist(self.process_times, bins=25, histtype='stepfilled', normed=True, color='r', label='Process Time')
 		plt.title("Process Time Histogram")
 		plt.xlabel("Process Time")
 		plt.ylabel("Frequency")

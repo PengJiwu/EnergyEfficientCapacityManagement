@@ -26,11 +26,9 @@ class Simulator:
 	def go_on(self):
 		# Time is over buddy. Gotta stop
 		if self.now >= self.run_time:
-			print "Overtime"
 			return False
 		# Enough requests had been processed
 		if self.request_count >= self.request_limit:
-			print "Retired"
 			return False
 		return True
 
@@ -41,6 +39,8 @@ class Simulator:
 			time_step = min(tasklist)
 			current_proc = self.processes[np.argmin(tasklist)]
 			self.now += time_step
+			if(self.now > self.run_time):
+				break
 
 			# Countdown the waiting job's waiting time by time_step
 			for proc in self.processes: 

@@ -29,7 +29,7 @@ class RequestGenerator:
 
 		if(self.arrival_type == 'nonhomogeneous'):
 			if(lambd_bins is None):
-				raise ValueError('Endpoints of Nonhomogeneous Poisson \
+				raise ValueError('Timestamps of Nonhomogeneous Poisson \
 								  Arrivals are Unknown') 
 			self.lambd_bins = lambd_bins
 

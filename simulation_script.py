@@ -16,8 +16,8 @@ RESOURCE_CAP = 5 				# Capacity of each server
 REQ_LIM = 100000				# Number of Requests to be served
 RUN_TIME = 5000 				# Time limit of the simulation
 BOOT_TIME = 3 					# The time it takes for a server to turn on
-PROCESS_TIME = 5 	  			# The duration of a single request
-ROUTING = 'shortest_queue'		# Routing method. Can be: longest_queue,
+PROCESS_TIME = 10 	  			# The duration of a single request
+ROUTING = 'longest_queue'		# Routing method. Can be: longest_queue,
 								# shortest_queue or random
 BOOT_POWER = 100				# Rate of consumption for a booting server
 RUN_POWER = 100					# Rate of consumption for a running server
