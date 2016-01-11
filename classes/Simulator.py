@@ -53,6 +53,15 @@ class Simulator:
 			if self.request_queue:
 				self.request_routing(self.request_queue[0])
 
+			idle_cnt = sum([r.available for r in self.resources if r.initialized])
+			boot_cnt = sum([r.capacity for r in self.resources if not r.initialized])
+			busy_cnt = sum([r.capacity for r in self.resources if r.initialized]) - idle_cnt
+			self.monitor.plot_bins.append(self.now)
+			self.monitor.idle_vals.append(idle_cnt)
+			self.monitor.busy_vals.append(busy_cnt)
+			self.monitor.booting_vals.append(boot_cnt)
+			self.monitor.queue_vals.append(len(self.request_queue))
+
 		# Simulation iteration is over.
 
 		self.monitor.finalize(self)
