@@ -9,14 +9,14 @@ import Resource
 import Monitor
 
 """Simulation Parameters--------------------------------------------"""
-T_HIGH = 80						# Upper threshold value
-T_LOW = 50						# Lower threshold value
+T_HIGH = 300					# Upper threshold value
+T_LOW = 200						# Lower threshold value
 #LAMBD = 5 						# Arrival rate
 RESOURCE_CAP = 5 				# Capacity of each server
-REQ_LIM = 100000				# Number of Requests to be served
+REQ_LIM = 5000					# Number of Requests to be served
 RUN_TIME = 5000 				# Time limit of the simulation
-BOOT_TIME = 3 					# The time it takes for a server to turn on
-PROCESS_TIME = 10 	  			# The duration of a single request
+BOOT_TIME = 10					# The time it takes for a server to turn on
+PROCESS_TIME = 30 	  			# The duration of a single request
 ROUTING = 'longest_queue'		# Routing method. Can be: longest_queue,
 								# shortest_queue or random
 BOOT_POWER = 100				# Rate of consumption for a booting server
